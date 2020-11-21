@@ -1,5 +1,11 @@
+NUM_CHANNELS = 1
+
 NUM_CLASSES = 10
 
 EPOCHS = 15
 
 BATCH_SIZE = 64
+
+height = 0
+
+width = 0

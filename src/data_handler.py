@@ -3,7 +3,8 @@ from keras.utils import to_categorical
 from numpy import reshape
 from numpy.random import permutation
 
-from variabels import NUM_CLASSES
+import variabels
+from variabels import NUM_CLASSES, NUM_CHANNELS
 
 # Based on: https://github.com/mjbhobe/dl-tensorflow-keras/blob/master/MNIST%20-%20Multiclass%20Classification%20-%20CNN%20-%20Keras.ipynb
 
@@ -13,11 +14,10 @@ def get_data(to_normalize=False):
 
     # converting 60,000 training digits and 10,000 test digits, on shape[0],1
     # from `heigh`x`width` to `heigh`x`width`x1 data
-    height, width = train_digits.shape[1:]
-    num_channels = 1
+    variabels.height, variabels.width = train_digits.shape[1:]
 
-    train_data = reshape(train_digits, (train_digits.shape[0], height, width, num_channels))
-    test_data = reshape(test_digits, (test_digits.shape[0], height, width, num_channels))
+    train_data = reshape(train_digits, (train_digits.shape[0], variabels.height, variabels.width, NUM_CHANNELS))
+    test_data = reshape(test_digits, (test_digits.shape[0], variabels.height, variabels.width, NUM_CHANNELS))
 
     # converting pixel value range from 0-255 to 0-1
     if to_normalize:
