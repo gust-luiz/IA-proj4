@@ -3,6 +3,10 @@ from keras.utils import to_categorical
 from numpy import reshape
 from numpy.random import permutation
 
+from variabels import NUM_CLASSES
+
+# Based on: https://github.com/mjbhobe/dl-tensorflow-keras/blob/master/MNIST%20-%20Multiclass%20Classification%20-%20CNN%20-%20Keras.ipynb
+
 
 def get_data(to_normalize=False):
     (train_digits, train_labels), (test_digits, test_labels) = load_data()
@@ -21,10 +25,8 @@ def get_data(to_normalize=False):
         test_data = test_data.astype('float32') / 255.
 
     # converting labels to one-hot code, e.g: 4 = [0 0 0 0 1 0 0 ...]
-    num_classes = 10
-
-    train_labels = to_categorical(train_labels, num_classes)
-    test_labels = to_categorical(test_labels, num_classes)
+    train_labels = to_categorical(train_labels, NUM_CLASSES)
+    test_labels = to_categorical(test_labels, NUM_CLASSES)
 
     return (train_data, train_labels), (test_data, test_labels)
 
