@@ -6,9 +6,8 @@ from numpy.random import permutation
 import variabels
 from variabels import NUM_CLASSES, NUM_CHANNELS
 
+
 # Based on: https://github.com/mjbhobe/dl-tensorflow-keras/blob/master/MNIST%20-%20Multiclass%20Classification%20-%20CNN%20-%20Keras.ipynb
-
-
 def get_data(to_normalize=False):
     (train_digits, train_labels), (test_digits, test_labels) = load_data()
 
