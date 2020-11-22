@@ -13,7 +13,7 @@ def show_plots(history, plot_title=None, fig_size=None):
     # val_loss & val_acc for validation data
     loss_vals = history['loss']
     val_loss_vals = history.get('val_loss')
-    epochs = range(1, len(history['acc']) + 1)
+    epochs = range(1, len(history['accuracy']) + 1)
 
     _, ax = pyplot.subplots(nrows=1, ncols=2, figsize=fig_size or (16, 4))
 
@@ -32,8 +32,8 @@ def show_plots(history, plot_title=None, fig_size=None):
     ax[0].grid(True)
 
     # plot accuracies
-    acc_vals = history['acc']
-    val_acc_vals = history.get('val_acc')
+    acc_vals = history['accuracy']
+    val_acc_vals = history.get('val_accuracy')
 
     ax[1].plot(epochs, acc_vals, color='navy', marker='o', ls=' ', label='Treinamento')
 

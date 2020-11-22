@@ -1,8 +1,8 @@
 from keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
 from keras.models import Sequential
 
-import .variabels
-from .variabels import NUM_CHANNELS, NUM_CLASSES
+import variabels
+from variabels import NUM_CHANNELS, NUM_CLASSES
 
 
 def get_1_layer_model():
@@ -15,9 +15,9 @@ def get_1_layer_model():
 
 def get_2_layers_model():
     filters_cnt = 32
-    kernel_size = 3
+    kernel_size = 5
     # 'valid' | 'same'
-    padding = 'valid'
+    padding = 'same'
     # 'relu' | 'sigmoid' | 'softmax' | 'softplus' |
     # 'softsign' | 'tanh' | 'selu' | 'elu' | 'exponential'
     # https://keras.io/api/layers/activations/
@@ -25,7 +25,7 @@ def get_2_layers_model():
     final_activation = 'softmax'
 
     pool_size = 2
-    dense_size = 128
+    dense_size = 200
 
     model = Sequential()
 

@@ -44,5 +44,13 @@ def shuffle_data(data, labels, cnt=1):
     return data, labels
 
 
-def split_data(data, labels, percent=0.5):
-    return (data, labels), (None, None)
+def split_data(data, labels, percent=.5):
+    split_point = int(percent * len(data))
+
+    data_2 = data[split_point:, :]
+    labels_2 = labels[split_point:, :]
+
+    data = data[:split_point, :]
+    labels = labels[:split_point, :]
+
+    return (data, labels), (data_2, labels_2)
