@@ -1,4 +1,7 @@
 import matplotlib.pyplot as pyplot
+from numpy import argmax
+
+from variabels import BATCH_SIZE
 
 
 def show_plots(history, plot_title=None, fig_size=None):
@@ -62,3 +65,17 @@ def show_plots(history, plot_title=None, fig_size=None):
 
     if val_acc_vals:
         del val_acc_vals
+
+
+def evaluate(model, data, labels):
+    loss, accuracy = model.evaluate(data, labels, batch_size=BATCH_SIZE)
+
+    print(f'Taxa de Erros: {loss:.4f}')
+    print(f'Taxa de Acurácia: {accuracy:.4f}')
+
+
+def predictions(model, data, labels):
+    pred = argmax(model.predict(data), axis=1)
+    true = argmax(labels, axis=1)
+
+    print(f'Previsões erradas: {(pred != true).sum()}/{len(labels)}')

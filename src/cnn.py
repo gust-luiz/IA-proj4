@@ -15,19 +15,19 @@ def get_1_layer_model():
     return model
 
 
-def get_2_layers_model():
-    filters_cnt = 32
-    kernel_size = 5
-    # 'valid' | 'same'
-    padding = 'same'
-    # 'relu' | 'sigmoid' | 'softmax' | 'softplus' |
-    # 'softsign' | 'tanh' | 'selu' | 'elu' | 'exponential'
-    # https://keras.io/api/layers/activations/
-    activation = 'relu'
+def get_2_layers_model(
+        filters_cnt=32,
+        kernel_size=3,
+        # 'valid' | 'same'
+        padding='same',
+        # 'relu' | 'sigmoid' | 'softmax' | 'softplus' |
+        # 'softsign' | 'tanh' | 'selu' | 'elu' | 'exponential'
+        # https://keras.io/api/layers/activations/
+        activation='relu',
+        pool_size=2,
+        dense_size=100
+    ):
     final_activation = 'softmax'
-
-    pool_size = 2
-    dense_size = 200
 
     model = Sequential()
 
