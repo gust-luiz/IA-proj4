@@ -67,15 +67,21 @@ def show_plots(history, plot_title=None, fig_size=None):
         del val_acc_vals
 
 
-def evaluate(model, data, labels):
+def evaluate(model, data, labels, file=None):
     loss, accuracy = model.evaluate(data, labels, batch_size=BATCH_SIZE)
 
-    print(f'Taxa de Erros: {loss:.4f}')
-    print(f'Taxa de Acurácia: {accuracy:.4f}')
+    if not file:
+        print(f'Taxa de Erros: {loss:.4f}')
+        print(f'Taxa de Acurácia: {accuracy:.4f}')
+    else:
+        print(f'{loss:.4f};{accuracy:.4f}', end=';', file=file)
 
 
-def predictions(model, data, labels):
+def predictions(model, data, labels, file=None):
     pred = argmax(model.predict(data), axis=1)
     true = argmax(labels, axis=1)
 
-    print(f'Previsões erradas: {(pred != true).sum()}/{len(labels)}')
+    if not file:
+        print(f'Previsões erradas: {(pred != true).sum()}/{len(labels)}')
+    else:
+        print(f'{(pred != true).sum()}', end=';', file=file)

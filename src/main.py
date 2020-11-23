@@ -12,23 +12,36 @@ train_data, train_labels = shuffle_data(train_data, train_labels)
 (train_data, train_labels), (xvalidate_data, xvalidate_labels) = split_data(train_data, train_labels, TRAIN_PERC)
 
 model = None # load_model(MODEL_FILE_NAME, models_dir())
-
 model = model or get_2_layers_model()
-print('model', model.summary())
 
-results = model.fit(
-    train_data, train_labels,
-    epochs=EPOCHS,
-    batch_size=BATCH_SIZE,
-    validation_data=(xvalidate_data, xvalidate_labels)
-)
+csv_file = open('filter_cnt_2.csv', 'w')
 
-# save_model(model, MODEL_FILE_NAME, models_dir())
+print('filters_cnt;tx_erro;tx_accu;predic', file=csv_file)
 
-print('history', results.history)
+for filters_cnt in range(1, 41):
+    print('testando:', filters_cnt)
+    print(filters_cnt, end=';', file=csv_file)
+    model = get_2_layers_model(filters_cnt=filters_cnt)
+    # print('model', model.summary())
 
-show_plots(results.history)
+    results = model.fit(
+        train_data, train_labels,
+        epochs=EPOCHS,
+        batch_size=BATCH_SIZE,
+        validation_data=(xvalidate_data, xvalidate_labels)
+    )
 
-evaluate(model, test_data, test_labels)
+    # save_model(model, MODEL_FILE_NAME, models_dir())
 
-predictions(model, test_data, test_labels)
+    # print('history', results.history)
+
+    # show_plots(results.history)
+
+    evaluate(model, test_data, test_labels, csv_file)
+
+    predictions(model, test_data, test_labels, csv_file)
+
+    print()
+    print('', file=csv_file)
+
+csv_file.close()
