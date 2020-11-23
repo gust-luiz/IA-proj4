@@ -16,7 +16,8 @@ def get_1_layer_model():
 
 
 def get_2_layers_model(
-        filters_cnt=32,
+        filters_cnt=33,
+        next_layer_filter_prop=2,
         kernel_size=3,
         # 'valid' | 'same'
         padding='same',
@@ -42,7 +43,7 @@ def get_2_layers_model(
     ))
 
     model.add(Conv2D(
-        filters=filters_cnt * 2,
+        filters=filters_cnt * next_layer_filter_prop,
         kernel_size=(kernel_size, kernel_size), padding=padding,
         activation=activation
     ))
