@@ -1,0 +1,10 @@
+activation;tx_erro;tx_accu;predic
+relu;0.0464;0.9865;135;
+sigmoid;0.0346;0.9885;115;
+softmax;0.4451;0.8273;1727;
+softplus;0.0353;0.9887;113;
+softsign;0.0345;0.9888;112;
+tanh;0.0542;0.9810;190;
+selu;0.0623;0.9836;164;
+elu;0.0624;0.9819;181;
+exponential;nan;0.0980;9020;
