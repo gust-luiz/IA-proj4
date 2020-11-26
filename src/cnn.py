@@ -3,8 +3,8 @@ from keras.models import Sequential, model_from_json
 from os.path import exists, join
 from os import mkdir
 
-import variabels
-from variabels import NUM_CHANNELS, NUM_CLASSES
+import variables
+from variables import NUM_CHANNELS, NUM_CLASSES
 
 
 def get_1_layer_model(
@@ -32,7 +32,7 @@ def get_1_layer_model(
         filters=filters_cnt,
         kernel_size=(kernel_size, kernel_size), padding=padding,
         activation=activation,
-        input_shape=(variabels.height, variabels.width, NUM_CHANNELS)
+        input_shape=(variables.height, variables.width, NUM_CHANNELS)
     ))
     model.add(MaxPooling2D(
         pool_size=(pool_size, pool_size)
@@ -89,7 +89,7 @@ def get_2_layers_model(
         filters=filters_cnt,
         kernel_size=(kernel_size, kernel_size), padding=padding,
         activation=activation,
-        input_shape=(variabels.height, variabels.width, NUM_CHANNELS)
+        input_shape=(variables.height, variables.width, NUM_CHANNELS)
     ))
     model.add(MaxPooling2D(
         pool_size=(pool_size, pool_size)
@@ -153,7 +153,7 @@ def get_3_layers_model(
         filters=filters_cnt,
         kernel_size=(kernel_size, kernel_size), padding=padding,
         activation=activation,
-        input_shape=(variabels.height, variabels.width, NUM_CHANNELS)
+        input_shape=(variables.height, variables.width, NUM_CHANNELS)
     ))
     model.add(MaxPooling2D(
         pool_size=(pool_size, pool_size)
