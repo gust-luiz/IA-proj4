@@ -17,17 +17,20 @@ def get_1_layer_model():
 
 def get_2_layers_model(
         filters_cnt=33,
-        next_layer_filter_prop=2,
-        kernel_size=3,
+        next_layer_filter_prop=2.4,
+        kernel_size=5,
         # 'valid' | 'same'
         padding='same',
         # 'relu' | 'sigmoid' | 'softmax' | 'softplus' |
         # 'softsign' | 'tanh' | 'selu' | 'elu' | 'exponential'
         # https://keras.io/api/layers/activations/
-        activation='relu',
-        pool_size=2,
-        dense_size=100
+        activation='softplus',
+        dense_size=210,
+        # 'sgd' | 'rmsprop' | 'adam' | 'adadelta' | 'adagrad' | 'adamax' | 'nadam' | 'ftrl'
+        # https://keras.io/api/optimizers/
+        optimizer='nadam',
     ):
+    pool_size=2
     final_activation = 'softmax'
 
     model = Sequential()
@@ -64,9 +67,7 @@ def get_2_layers_model(
     ))
 
     model.compile(
-        # 'sgd' | 'rmsprop' | 'adam' | 'adadelta' | 'adagrad' | 'adamax' | 'nadam' | 'ftrl'
-        # https://keras.io/api/optimizers/
-        optimizer='adam',
+        optimizer=optimizer,
         # 'categorical_crossentropy' | 'sparse_categorical_crossentropy'
         # https://keras.io/api/losses/probabilistic_losses/
         loss='categorical_crossentropy',
