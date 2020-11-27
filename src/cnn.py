@@ -28,7 +28,7 @@ def get_2_layers_model(
         dense_size=210,
         # 'sgd' | 'rmsprop' | 'adam' | 'adadelta' | 'adagrad' | 'adamax' | 'nadam' | 'ftrl'
         # https://keras.io/api/optimizers/
-        optimizer='nadam',
+        optimizer='nadam'
     ):
     pool_size=2
     final_activation = 'softmax'
@@ -86,10 +86,74 @@ def get_3_layers_model():
     return model
 
 
-def get_4_layers_model():
+def get_4_layers_model(
+        filters_cnt=33,
+        next_layer_filter_prop=2.4,
+        kernel_size=5,
+        padding='same',
+        activation='softplus',
+        dense_size=210,
+        optimizer='nadam'
+    ):
+    pool_size=2
+    final_activation = 'softmax'
+
     model = Sequential()
 
-    # ...
+    model.add(Conv2D(
+        filters=filters_cnt,
+        kernel_size=(kernel_size, kernel_size), padding=padding,
+        activation=activation,
+        input_shape=(variabels.height, variabels.width, NUM_CHANNELS)
+    ))
+    model.add(MaxPooling2D(
+        pool_size=(pool_size, pool_size)
+    ))
+
+    model.add(Conv2D(
+        filters=filters_cnt * next_layer_filter_prop,
+        kernel_size=(kernel_size, kernel_size), padding=padding,
+        activation=activation
+    ))
+    model.add(MaxPooling2D(
+        pool_size=(pool_size, pool_size)
+    ))
+
+    model.add(Conv2D(
+        filters=filters_cnt * next_layer_filter_prop,
+        kernel_size=(kernel_size, kernel_size), padding=padding,
+        activation=activation
+    ))
+    model.add(MaxPooling2D(
+        pool_size=(pool_size, pool_size)
+    ))
+
+    model.add(Conv2D(
+        filters=filters_cnt * next_layer_filter_prop,
+        kernel_size=(kernel_size, kernel_size), padding=padding,
+        activation=activation
+    ))
+    model.add(MaxPooling2D(
+        pool_size=(pool_size, pool_size)
+    ))
+
+    model.add(Flatten())
+
+    model.add(Dense(
+        dense_size,
+        activation=activation
+    ))
+
+    model.add(Dense(
+        NUM_CLASSES,
+        activation=final_activation
+    ))
+
+    model.compile(
+        optimizer=optimizer,
+        loss='categorical_crossentropy',
+        metrics=['accuracy']
+    )
 
     return model
 
