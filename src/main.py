@@ -5,7 +5,8 @@ from utils import path_relative_to
 from variabels import BATCH_SIZE, EPOCHS, TRAIN_PERC, models_dir
 
 
-MODEL_FILE_NAME = 'modelo_2_camadas'
+#MODEL_FILE_NAME = 'modelo_2_camadas'
+MODEL_FILE_NAME = 'modelo_1_camadas'
 
 (train_data, train_labels), (test_data, test_labels) = get_data()
 train_data, train_labels = shuffle_data(train_data, train_labels)

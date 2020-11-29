@@ -1,7 +1,7 @@
 import matplotlib.pyplot as pyplot
 from numpy import argmax
 
-from variabels import BATCH_SIZE
+from variables import BATCH_SIZE
 
 
 def show_plots(history, plot_title=None, fig_size=None):
