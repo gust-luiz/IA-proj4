@@ -1,11 +1,11 @@
-from variables import BATCH_SIZE, EPOCHS, TRAIN_PERC, models_dir
-
-from cnn import get_1_layer_model, get_2_layers_model, load_model, save_model
+from cnn import (get_1_layer_model, get_2_layers_model, get_3_layers_model,
+                 get_4_layers_model, load_model, save_model)
 from data_handler import get_data, shuffle_data, split_data
 from performance import evaluate, predictions, show_plots
 from utils import path_relative_to
+from variables import BATCH_SIZE, EPOCHS, TRAIN_PERC, models_dir
 
-MODEL_FILE_NAME = 'cnn_2_layers_normalized'
+MODEL_FILE_NAME = 'cnn_4_layers'
 
 (train_data, train_labels), (test_data, test_labels) = get_data(to_normalize=True)
 train_data, train_labels = shuffle_data(train_data, train_labels)
@@ -14,7 +14,7 @@ train_data, train_labels = shuffle_data(train_data, train_labels)
 
 # model = load_model(MODEL_FILE_NAME, models_dir())
 # model = model or get_2_layers_model()
-model = get_2_layers_model()
+model = get_4_layers_model()
 print('model', model.summary())
 
 results = model.fit(

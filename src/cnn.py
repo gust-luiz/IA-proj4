@@ -196,7 +196,7 @@ def get_4_layers_model(
         filters=filters_cnt,
         kernel_size=(kernel_size, kernel_size), padding=padding,
         activation=activation,
-        input_shape=(variabels.height, variabels.width, NUM_CHANNELS)
+        input_shape=(variables.height, variables.width, NUM_CHANNELS)
     ))
     model.add(MaxPooling2D(
         pool_size=(POOL_SIZE, POOL_SIZE)
