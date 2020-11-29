@@ -1,30 +1,23 @@
-from keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
-from keras.models import Sequential, model_from_json
-from os.path import exists, join
 from os import mkdir
+from os.path import exists, join
+
+from keras.layers import Conv2D, Dense, Flatten, MaxPooling2D
+from keras.models import Sequential, model_from_json
 
 import variables
-from variables import NUM_CHANNELS, NUM_CLASSES
+from variables import (ACTIVATION, DENSE_SIZE, FILTER_CNT, FINAL_ACTIVATION,
+                       KERNEL_SIZE, NEXT_LAYER_FILTER_PROP, NUM_CHANNELS,
+                       NUM_CLASSES, OPTIMIZER, PADDING, POOL_SIZE)
 
 
 def get_1_layer_model(
-        filters_cnt=32,
-        next_layer_filter_prop=2,
-        kernel_size=3,
-        # 'valid' | 'same'
-        padding='same',
-        # 'relu' | 'sigmoid' | 'softmax' | 'softplus' |
-        # 'softsign' | 'tanh' | 'selu' | 'elu' | 'exponential'
-        # https://keras.io/api/layers/activations/
-        activation='relu',
-        dense_size=128,
-        # 'sgd' | 'rmsprop' | 'adam' | 'adadelta' | 'adagrad' | 'adamax' | 'nadam' | 'ftrl'
-        # https://keras.io/api/optimizers/
-        optimizer='adam',
+        filters_cnt=FILTER_CNT,
+        kernel_size=KERNEL_SIZE,
+        padding=PADDING,
+        activation=ACTIVATION,
+        dense_size=DENSE_SIZE,
+        optimizer=OPTIMIZER
     ):
-    pool_size=2
-    final_activation = 'softmax'
-
     model = Sequential()
 
     # First and only Convolution layer
@@ -35,7 +28,7 @@ def get_1_layer_model(
         input_shape=(variables.height, variables.width, NUM_CHANNELS)
     ))
     model.add(MaxPooling2D(
-        pool_size=(pool_size, pool_size)
+        pool_size=(POOL_SIZE, POOL_SIZE)
     ))
 
     model.add(Flatten())
@@ -49,7 +42,7 @@ def get_1_layer_model(
     # Output layer
     model.add(Dense(
         NUM_CLASSES,
-        activation=final_activation
+        activation=FINAL_ACTIVATION
     ))
 
     # Compiling model
@@ -66,23 +59,14 @@ def get_1_layer_model(
 
 
 def get_2_layers_model(
-        filters_cnt=33,
-        next_layer_filter_prop=2.4,
-        kernel_size=5,
-        # 'valid' | 'same'
-        padding='same',
-        # 'relu' | 'sigmoid' | 'softmax' | 'softplus' |
-        # 'softsign' | 'tanh' | 'selu' | 'elu' | 'exponential'
-        # https://keras.io/api/layers/activations/
-        activation='softplus',
-        dense_size=210,
-        # 'sgd' | 'rmsprop' | 'adam' | 'adadelta' | 'adagrad' | 'adamax' | 'nadam' | 'ftrl'
-        # https://keras.io/api/optimizers/
-        optimizer='nadam'
+        filters_cnt=FILTER_CNT,
+        next_layer_filter_prop=NEXT_LAYER_FILTER_PROP,
+        kernel_size=KERNEL_SIZE,
+        padding=PADDING,
+        activation=ACTIVATION,
+        dense_size=DENSE_SIZE,
+        optimizer=OPTIMIZER
     ):
-    pool_size=2
-    final_activation = 'softmax'
-
     model = Sequential()
 
     model.add(Conv2D(
@@ -92,7 +76,7 @@ def get_2_layers_model(
         input_shape=(variables.height, variables.width, NUM_CHANNELS)
     ))
     model.add(MaxPooling2D(
-        pool_size=(pool_size, pool_size)
+        pool_size=(POOL_SIZE, POOL_SIZE)
     ))
 
     model.add(Conv2D(
@@ -101,7 +85,7 @@ def get_2_layers_model(
         activation=activation
     ))
     model.add(MaxPooling2D(
-        pool_size=(pool_size, pool_size)
+        pool_size=(POOL_SIZE, POOL_SIZE)
     ))
 
     model.add(Flatten())
@@ -113,7 +97,7 @@ def get_2_layers_model(
 
     model.add(Dense(
         NUM_CLASSES,
-        activation=final_activation
+        activation=FINAL_ACTIVATION
     ))
 
     model.compile(
@@ -129,23 +113,14 @@ def get_2_layers_model(
 
 
 def get_3_layers_model(
-        filters_cnt=32,
-        next_layer_filter_prop=2,
-        kernel_size=3,
-        # 'valid' | 'same'
-        padding='same',
-        # 'relu' | 'sigmoid' | 'softmax' | 'softplus' |
-        # 'softsign' | 'tanh' | 'selu' | 'elu' | 'exponential'
-        # https://keras.io/api/layers/activations/
-        activation='relu',
-        dense_size=128,
-        # 'sgd' | 'rmsprop' | 'adam' | 'adadelta' | 'adagrad' | 'adamax' | 'nadam' | 'ftrl'
-        # https://keras.io/api/optimizers/
-        optimizer='adam',
+        filters_cnt=FILTER_CNT,
+        next_layer_filter_prop=NEXT_LAYER_FILTER_PROP,
+        kernel_size=KERNEL_SIZE,
+        padding=PADDING,
+        activation=ACTIVATION,
+        dense_size=DENSE_SIZE,
+        optimizer=OPTIMIZER
     ):
-    pool_size=2
-    final_activation = 'softmax'
-
     model = Sequential()
 
     # First Convolution layer
@@ -156,7 +131,7 @@ def get_3_layers_model(
         input_shape=(variables.height, variables.width, NUM_CHANNELS)
     ))
     model.add(MaxPooling2D(
-        pool_size=(pool_size, pool_size)
+        pool_size=(POOL_SIZE, POOL_SIZE)
     ))
 
     # Second Convolution layer
@@ -166,7 +141,7 @@ def get_3_layers_model(
         activation=activation
     ))
     model.add(MaxPooling2D(
-        pool_size=(pool_size, pool_size)
+        pool_size=(POOL_SIZE, POOL_SIZE)
     ))
 
     # Third Convolution layer
@@ -176,7 +151,7 @@ def get_3_layers_model(
         activation=activation
     ))
     model.add(MaxPooling2D(
-        pool_size=(pool_size, pool_size)
+        pool_size=(POOL_SIZE, POOL_SIZE)
     ))
 
     model.add(Flatten())
@@ -190,7 +165,7 @@ def get_3_layers_model(
     # Output layer
     model.add(Dense(
         NUM_CLASSES,
-        activation=final_activation
+        activation=FINAL_ACTIVATION
     ))
 
     # Compiling model
@@ -207,17 +182,14 @@ def get_3_layers_model(
 
 
 def get_4_layers_model(
-        filters_cnt=33,
-        next_layer_filter_prop=2.4,
-        kernel_size=5,
-        padding='same',
-        activation='softplus',
-        dense_size=210,
-        optimizer='nadam'
+        filters_cnt=FILTER_CNT,
+        next_layer_filter_prop=NEXT_LAYER_FILTER_PROP,
+        kernel_size=KERNEL_SIZE,
+        padding=PADDING,
+        activation=ACTIVATION,
+        dense_size=DENSE_SIZE,
+        optimizer=OPTIMIZER
     ):
-    pool_size=2
-    final_activation = 'softmax'
-
     model = Sequential()
 
     model.add(Conv2D(
@@ -227,7 +199,7 @@ def get_4_layers_model(
         input_shape=(variabels.height, variabels.width, NUM_CHANNELS)
     ))
     model.add(MaxPooling2D(
-        pool_size=(pool_size, pool_size)
+        pool_size=(POOL_SIZE, POOL_SIZE)
     ))
 
     model.add(Conv2D(
@@ -236,7 +208,7 @@ def get_4_layers_model(
         activation=activation
     ))
     model.add(MaxPooling2D(
-        pool_size=(pool_size, pool_size)
+        pool_size=(POOL_SIZE, POOL_SIZE)
     ))
 
     model.add(Conv2D(
@@ -245,7 +217,7 @@ def get_4_layers_model(
         activation=activation
     ))
     model.add(MaxPooling2D(
-        pool_size=(pool_size, pool_size)
+        pool_size=(POOL_SIZE, POOL_SIZE)
     ))
 
     model.add(Conv2D(
@@ -254,7 +226,7 @@ def get_4_layers_model(
         activation=activation
     ))
     model.add(MaxPooling2D(
-        pool_size=(pool_size, pool_size)
+        pool_size=(POOL_SIZE, POOL_SIZE)
     ))
 
     model.add(Flatten())
@@ -266,7 +238,7 @@ def get_4_layers_model(
 
     model.add(Dense(
         NUM_CLASSES,
-        activation=final_activation
+        activation=FINAL_ACTIVATION
     ))
 
     model.compile(
